@@ -57,6 +57,7 @@
     # shell
     pkgs.nushell
     pkgs.fish
+    pkgs.powershell
 
     ## prompt
     pkgs.starship
