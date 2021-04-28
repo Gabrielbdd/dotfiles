@@ -19,6 +19,10 @@ set -gx EDITOR nvim
 # Use bat as man pager
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
+# Vi mode
+fish_vi_key_bindings
+set fish_cursor_replace_one underscore
+
 # See why it makes the start freeze
 #podman completion fish | source
 
@@ -33,3 +37,29 @@ for i in (pstree -np -s $fish_pid | grep -o -E '[0-9]+');
         break
     end
 end;
+
+# Adds support for !! and !$
+# Suggested on https://superuser.com/questions/719531/what-is-the-equivalent-of-bashs-and-in-the-fish-shell
+function bind_bang
+    switch (commandline -t)[-1]
+        case "!"
+            commandline -t $history[1]; commandline -f repaint
+        case "*"
+            commandline -i !
+    end
+end
+
+function bind_dollar
+    switch (commandline -t)[-1]
+        case "!"
+            commandline -t ""
+            commandline -f history-token-search-backward
+        case "*"
+            commandline -i '$'
+    end
+end
+
+function fish_user_key_bindings
+    bind ! bind_bang
+    bind '$' bind_dollar
+end
