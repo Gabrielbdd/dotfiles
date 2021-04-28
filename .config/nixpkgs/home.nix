@@ -48,7 +48,7 @@
     pkgs.awscli2
 
     ## db
-    pkgs.pgcli
+    #pkgs.pgcli
 
     ## security
     pkgs.rage
