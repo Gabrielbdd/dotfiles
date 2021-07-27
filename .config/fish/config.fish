@@ -5,9 +5,6 @@ alias hm="home-manager"
 alias za="zoxide add"
 alias zr="zoxide remove"
 
-fish_add_path /home/linuxbrew/.linuxbrew/bin
-fish_add_path /home/linuxbrew/.linuxbrew/sbin
-
 # Use fd as default command for fzf
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 # Set current wsl IP
@@ -62,18 +59,4 @@ end
 function fish_user_key_bindings
     bind ! bind_bang
     bind '$' bind_dollar
-end
-
-# Git abbreviations
-if status --is-interactive
-    abbr -a -g gco git checkout
-    abbr -a -g gs git status
-    abbr -a -g gc git commit
-    abbr -a -g gl git log
-    abbr -a -g gf git fetch
-    abbr -a -g gpl git pull
-    abbr -a -g gps git push
-    abbr -a -g gr git rebase
-    abbr -a -g gm git merge
-    abbr -a -g gs git stash
 end
