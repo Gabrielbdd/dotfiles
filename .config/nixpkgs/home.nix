@@ -98,13 +98,6 @@
       };
     };
 
-    bat = {
-      enable = true;
-      config = {
-        theme = "Dracula";
-      };
-    };
-
     fish = {
       enable = true;
       loginShellInit = "source ~/.config/fish/user_config.fish";
@@ -125,6 +118,20 @@
           };
         }
       ];
+    };
+
+    starship = {
+      enable = true;
+      settings = {
+        git_status.disabled = true;
+      };
+    };
+
+    bat = {
+      enable = true;
+      config = {
+        theme = "Dracula";
+      };
     };
   };
 }
