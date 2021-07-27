@@ -87,5 +87,12 @@
         pull.rebase = "true";
       };
     };
+
+    bat = {
+      enable = true;
+      config = {
+        theme = "Dracula";
+      };
+    };
   };
 }
