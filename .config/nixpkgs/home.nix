@@ -19,8 +19,18 @@
   # changes in each release.
   home.stateVersion = "21.05";
 
+  home.sessionVariables = {
+    VISUAL = "nvim";
+    EDITOR = "nvim";
+    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    FZF_DEFAULT_COMMAND = "fd --type f";
+    DISPLAY = "$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0";
+    GPG_TTY = "$(tty)";
+  };
+
   home.packages = [
     # utils
+    pkgs.git
     pkgs.git-trim
     pkgs.lsd
     pkgs.fzf
@@ -93,6 +103,27 @@
       config = {
         theme = "Dracula";
       };
+    };
+
+    fish = {
+      enable = true;
+      shellAliases = {
+        ls = "lsd";
+        hm = "home-manager";
+        za = "zoxide add";
+        zr = "zoxide remove";
+      };
+      plugins = [
+        {
+          name = "fisher";
+          src = pkgs.fetchFromGitHub {
+            owner = "jorgebucaran";
+            repo = "fisher";
+            rev = "b9b1eda07a9325e7641f3f79f9c7a08d8de3b357";
+            sha256 = "033b2zr804iblcqj5pl88qng1dx7cw05f1lhzx5d72b0jfrcyl2z";
+          };
+        }
+      ];
     };
   };
 }
