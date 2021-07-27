@@ -107,6 +107,7 @@
 
     fish = {
       enable = true;
+      loginShellInit = "source ~/.config/fish/user_config.fish";
       shellAliases = {
         ls = "lsd";
         hm = "home-manager";
