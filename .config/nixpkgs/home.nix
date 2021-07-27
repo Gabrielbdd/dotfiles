@@ -42,13 +42,11 @@
     pkgs.podman
     pkgs.podman-compose
     pkgs.buildah
+    pkgs.kubectl
 
     ## cloud
-    pkgs.azure-cli
+    #pkgs.azure-cli
     pkgs.awscli2
-
-    ## db
-    #pkgs.pgcli
 
     ## security
     pkgs.rage
@@ -63,12 +61,31 @@
     pkgs.starship
 
     # editor
-    pkgs.neovim
+    #pkgs.neovim
 
     # languages
     ## node
     pkgs.yarn
-    pkgs.nodePackages.npm
     pkgs.nodePackages.pnpm
   ];
+
+  programs = {
+    git = {
+      enable = true;
+      userName = "Gabriel Berto";
+      userEmail = "gabriel.berto@pottencial.com.br";
+      delta = {
+        enable = true;
+        options = {
+          syntax-theme = "Dracula";
+        };
+      };
+      extraConfig = {
+        init.defaultBranch = "main";
+        push.default = "current";
+        rebase.autostash = "true";
+        pull.rebase = "true";
+      };
+    };
+  };
 }

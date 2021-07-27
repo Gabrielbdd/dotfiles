@@ -24,7 +24,7 @@ fish_vi_key_bindings
 set fish_cursor_replace_one underscore
 
 # See why it makes the start freeze
-#podman completion fish | source
+# podman completion fish | source
 
 starship init fish | source
 
@@ -62,4 +62,18 @@ end
 function fish_user_key_bindings
     bind ! bind_bang
     bind '$' bind_dollar
+end
+
+# Git abbreviations
+if status --is-interactive
+    abbr -a -g gco git checkout
+    abbr -a -g gs git status
+    abbr -a -g gc git commit
+    abbr -a -g gl git log
+    abbr -a -g gf git fetch
+    abbr -a -g gpl git pull
+    abbr -a -g gps git push
+    abbr -a -g gr git rebase
+    abbr -a -g gm git merge
+    abbr -a -g gs git stash
 end
