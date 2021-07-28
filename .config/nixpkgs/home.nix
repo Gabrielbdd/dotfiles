@@ -1,6 +1,18 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+let
+  # installs a vim plugin from git with a given tag / branch
+  pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "${lib.strings.sanitizeDerivationName repo}";
+    version = ref;
+    src = builtins.fetchGit {
+      url = "https://github.com/${repo}.git";
+      ref = ref;
+    };
+  };
 
-{
+  # always installs latest version
+  plugin = pluginGit "HEAD";
+in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -27,6 +39,12 @@
     DISPLAY = "$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0";
     GPG_TTY = "$(tty)";
   };
+
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
+    }))
+  ];
 
   home.packages = [
     # utils
@@ -71,7 +89,7 @@
     pkgs.starship
 
     # editor
-    #pkgs.neovim
+    pkgs.neovim-nightly
 
     # languages
     ## node
@@ -125,6 +143,18 @@
       settings = {
         git_status.disabled = true;
       };
+    };
+
+    neovim = {
+      enable = true;
+      extraConfig = ''
+        source $HOME/.config/nvim/base.vim
+      '';
+      plugins = with pkgs.vimPlugins; [
+      	(plugin "sheerun/vim-polyglot")
+      	(plugin "editorconfig/editorconfig-vim")
+      	(plugin "dracula/vim")
+      ];
     };
 
     bat = {
