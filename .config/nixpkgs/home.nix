@@ -1,9 +1,11 @@
 { pkgs, ... }:
+
 let
   imports = [
     ./git.nix
     ./fish.nix
     ./neovim.nix
+    ./starship.nix
   ];
 in {
   inherit imports;
@@ -76,13 +78,6 @@ in {
   ];
 
   programs = {
-    starship = {
-      enable = true;
-      settings = {
-        git_status.disabled = true;
-      };
-    };
-
     bat = {
       enable = true;
       config = {
