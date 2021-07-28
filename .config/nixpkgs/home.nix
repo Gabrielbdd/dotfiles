@@ -61,24 +61,24 @@ in {
     pkgs.tealdeer
     pkgs.bottom
     pkgs.delta
-    pkgs.up
+    # pkgs.up
     pkgs.xclip
-    pkgs.rink
+    # pkgs.rink
     pkgs.yadm
 
     ## oci
-    pkgs.podman
-    pkgs.podman-compose
-    pkgs.buildah
-    pkgs.kubectl
+    # pkgs.podman
+    # pkgs.podman-compose
+    # pkgs.buildah
+    # pkgs.kubectl
 
     ## cloud
     #pkgs.azure-cli
     pkgs.awscli2
 
     ## security
-    pkgs.rage
-    pkgs.sops
+    # pkgs.rage
+    # pkgs.sops
 
     # shell
     pkgs.nushell
