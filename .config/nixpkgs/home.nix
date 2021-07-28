@@ -6,6 +6,7 @@ let
     ./fish.nix
     ./neovim.nix
     ./starship.nix
+    ./bat.nix
   ];
 in {
   inherit imports;
@@ -76,13 +77,4 @@ in {
     pkgs.yarn
     pkgs.nodePackages.pnpm
   ];
-
-  programs = {
-    bat = {
-      enable = true;
-      config = {
-        theme = "Dracula";
-      };
-    };
-  };
 }
