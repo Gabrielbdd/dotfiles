@@ -12,32 +12,27 @@ let
 
   # always installs latest version
   plugin = pluginGit "HEAD";
+
+  imports = [
+    ./git.nix
+  ];
 in {
-  # Let Home Manager install and manage itself.
+  inherit imports;
+
   programs.home-manager.enable = true;
 
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-  home.username = "gabriel";
-  home.homeDirectory = "/home/gabriel";
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "21.05";
-
-  home.sessionVariables = {
-    VISUAL = "nvim";
-    EDITOR = "nvim";
-    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
-    FZF_DEFAULT_COMMAND = "fd --type f";
-    DISPLAY = "$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0";
-    GPG_TTY = "$(tty)";
+  home = {
+    username = "gabriel";
+    homeDirectory = "/home/gabriel";
+    stateVersion = "21.05";
+    sessionVariables = {
+      VISUAL = "nvim";
+      EDITOR = "nvim";
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+      FZF_DEFAULT_COMMAND = "fd --type f";
+      DISPLAY = "$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0";
+      GPG_TTY = "$(tty)";
+    };
   };
 
   nixpkgs.overlays = [
@@ -98,24 +93,6 @@ in {
   ];
 
   programs = {
-    git = {
-      enable = true;
-      userName = "Gabriel Berto";
-      userEmail = "gabriel.berto@pottencial.com.br";
-      delta = {
-        enable = true;
-        options = {
-          syntax-theme = "Dracula";
-        };
-      };
-      extraConfig = {
-        init.defaultBranch = "main";
-        push.default = "current";
-        rebase.autostash = "true";
-        pull.rebase = "true";
-      };
-    };
-
     fish = {
       enable = true;
       loginShellInit = "source ~/.config/fish/user_config.fish";
