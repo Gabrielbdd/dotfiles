@@ -1,13 +1,12 @@
 { pkgs, ... }:
 
-let
-  imports = [
-    ./git.nix
-    ./fish.nix
-    ./neovim.nix
-    ./starship.nix
-    ./bat.nix
-  ];
+let imports = [
+  ./git.nix
+  ./fish.nix
+  ./neovim.nix
+  ./starship.nix
+  ./bat.nix
+];
 in {
   inherit imports;
 
@@ -42,9 +41,9 @@ in {
     pkgs.tealdeer
     pkgs.bottom
     pkgs.delta
-    # pkgs.up
+    # pkgs.up # The ultimate plumber
     pkgs.xclip
-    # pkgs.rink
+    # pkgs.rink # Unit conversion tool
     pkgs.yadm
 
     ## oci
@@ -58,8 +57,8 @@ in {
     pkgs.awscli2
 
     ## security
-    # pkgs.rage
-    # pkgs.sops
+    # pkgs.rage # Rust implementation of age, a simple a secure encryption tool
+    # pkgs.sops # Created by Mozilla, its an editor of encrypted files
 
     # shell
     pkgs.nushell
