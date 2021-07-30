@@ -41,7 +41,7 @@ in {
     pkgs.tealdeer
     pkgs.bottom
     pkgs.delta
-    # pkgs.up # The ultimate plumber
+    pkgs.up # The ultimate plumber
     pkgs.xclip
     # pkgs.rink # Unit conversion tool
     pkgs.yadm
@@ -53,7 +53,7 @@ in {
     # pkgs.kubectl
 
     ## cloud
-    #pkgs.azure-cli
+    pkgs.azure-cli
     pkgs.awscli2
 
     ## security
