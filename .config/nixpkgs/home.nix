@@ -5,6 +5,7 @@ let imports = [
   ./fish.nix
   ./neovim.nix
   ./starship.nix
+  ./zoxide.nix
   ./bat.nix
 ];
 in {
