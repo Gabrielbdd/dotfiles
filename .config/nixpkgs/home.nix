@@ -45,6 +45,8 @@ in {
     pkgs.xclip
     # pkgs.rink # Unit conversion tool
     pkgs.yadm
+    pkgs.yank # Yank terminal to clipboard
+    pkgs.tmux
 
     ## oci
     # pkgs.podman
@@ -57,8 +59,9 @@ in {
     pkgs.awscli2
 
     ## security
-    # pkgs.rage # Rust implementation of age, a simple a secure encryption tool
+    pkgs.rage # Rust implementation of age, a simple a secure encryption tool
     # pkgs.sops # Created by Mozilla, its an editor of encrypted files
+    pkgs.diceware # Passphrase generator
 
     # shell
     pkgs.nushell
