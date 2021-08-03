@@ -3,6 +3,7 @@
 let imports = [
   ./git.nix
   ./fish.nix
+  ./tmux.nix
   ./neovim.nix
   ./starship.nix
   ./zoxide.nix
@@ -48,6 +49,8 @@ in {
     pkgs.yadm
     pkgs.yank # Yank terminal to clipboard
     pkgs.tmux
+    pkgs.cheat # View and create interactive cheatsheets
+    pkgs.dogdns # dig alternative
 
     ## oci
     # pkgs.podman
