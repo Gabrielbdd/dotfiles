@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if command -v nvim >/dev/null 2>&1; then
-  echo "Bootstraping NeoVim"
-  nvim '+PlugUpdate' '+PlugClean!' '+PlugUpdate' '+qall'
-fi
-
