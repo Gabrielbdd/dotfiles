@@ -50,7 +50,8 @@ in {
     pkgs.yank # Yank terminal to clipboard
     pkgs.tmux
     pkgs.cheat # View and create interactive cheatsheets
-    pkgs.dogdns # dig alternative
+    pkgs.dogdns # Dig alternative
+    pkgs.pandoc # Markup files conversion
 
     ## oci
     # pkgs.podman
@@ -82,5 +83,7 @@ in {
     ## node
     pkgs.yarn
     pkgs.nodePackages.pnpm
+    ## rust
+    pkgs.rustup
   ];
 }
