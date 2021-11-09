@@ -51,24 +51,4 @@ telescope.setup({
 		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 		promt_title = false,
 	},
-	extensions = {
-		fzf = {
-			fuzzy = true, -- false will only do exact matching
-			override_generic_sorter = false, -- override the generic sorter
-			override_file_sorter = true, -- override the file sorter
-			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-			-- the default case_mode is "smart_case"
-		},
-	},
 })
-
-if not pcall(function()
-	telescope.load_extension("fzf")
-end) then
-	-- This should only trigger when in need of PackerSync, so better do it
-	print("After completion of PackerCompile, restart neovim.")
-	-- Trigger packer compile on PackerComplete, so it properly waits for PackerSync
-	vim.cmd('autocmd User PackerComplete ++once lua print "Waiting for PackerCompile.." require("packer").compile()')
-	vim.cmd('autocmd User PackerCompileDone ++once echo "Packer Compile done, restart neovim."')
-	require("packer").update("telescope-fzf-native.nvim")
-end

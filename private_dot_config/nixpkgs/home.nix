@@ -28,63 +28,72 @@ in {
     };
   };
 
-  home.packages = [
+  home.packages = with pkgs; [
     # utils
-    pkgs.git
-    pkgs.git-trim
-    pkgs.lsd
-    pkgs.fzf
-    pkgs.ripgrep
-    pkgs.fd
-    pkgs.sd
-    pkgs.jq
-    pkgs.bat
-    pkgs.zoxide
-    pkgs.tealdeer
-    pkgs.bottom
-    pkgs.delta
-    pkgs.up # The ultimate plumber
-    pkgs.xclip
-    # pkgs.rink # Unit conversion tool
-    pkgs.yadm
-    pkgs.chezmoi
-    pkgs.yank # Yank terminal to clipboard
-    pkgs.tmux
-    pkgs.cheat # View and create interactive cheatsheets
-    pkgs.dogdns # Dig alternative
-    pkgs.pandoc # Markup files conversion
+    ncurses
+    /* git */
+    git-trim
+    lazygit
+    lsd
+    fzf
+    ripgrep
+    fd
+    sd
+    jq
+    bat
+    zoxide
+    tealdeer
+    bottom
+    delta
+    up # The ultimate plumber
+    xclip
+    # rink # Unit conversion tool
+    yadm
+    chezmoi
+    yank # Yank terminal to clipboard
+    tmux
+    cheat # View and create interactive cheatsheets
+    dogdns # Dig alternative
+    pandoc # Markup files conversion
+    ouch # Compress / decompress files
+    cachix
+    wget
+    unzip
 
     ## oci
-    # pkgs.podman
-    # pkgs.podman-compose
-    # pkgs.buildah
-    # pkgs.kubectl
+    # podman
+    # podman-compose
+    # buildah
+    # kubectl
 
     ## cloud
-    pkgs.azure-cli
-    pkgs.awscli2
+    azure-cli
+    awscli2
 
     ## security
-    pkgs.rage # Rust implementation of age, a simple a secure encryption tool
-    # pkgs.sops # Created by Mozilla, its an editor of encrypted files
-    pkgs.diceware # Passphrase generator
+    rage # Rust implementation of age, a simple a secure encryption tool
+    # sops # Created by Mozilla, its an editor of encrypted files
+    diceware # Passphrase generator
 
     # shell
-    pkgs.nushell
-    pkgs.fish
-    pkgs.powershell
+    nushell
+    fish
+    powershell
 
     ## prompt
-    pkgs.starship
+    starship
 
     # editor
-    pkgs.neovim-nightly
+    neovim-nightly
 
     # languages
-    ## node
-    pkgs.yarn
-    pkgs.nodePackages.pnpm
+    ## java script
+    nodejs
+    yarn
+    nodePackages.pnpm
     ## rust
-    pkgs.rustup
+    rustup
+    ## ruby
+    ruby
   ];
 }

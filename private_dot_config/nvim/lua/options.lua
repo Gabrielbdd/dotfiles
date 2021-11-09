@@ -3,6 +3,13 @@ local g = vim.g
 local wo = vim.wo
 local bo = vim.bo
 
+g.coq_settings = { auto_start = "shut-up" }
+g.chadtree_settings = { theme = { text_colour_set = "nord" } }
+
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldlevelstart = 3
+
 opt.syntax = "on"
 opt.errorbells = false
 opt.smartcase = true
@@ -27,7 +34,7 @@ opt.cmdheight = 1
 opt.updatetime = 250 -- update interval for gitsigns
 opt.timeoutlen = 400
 opt.clipboard = "unnamedplus"
-opt.shell = "/bin/bash"
+-- opt.shell = "nu.exe"
 
 -- disable nvim intro
 opt.shortmess:append("sI")
@@ -37,8 +44,8 @@ opt.fillchars = { eob = " " }
 
 -- Numbers
 opt.number = false
--- opt.numberwidth = 2
--- opt.relativenumber = true
+opt.numberwidth = 2
+opt.relativenumber = true
 
 -- Indenline
 opt.expandtab = true
@@ -54,38 +61,3 @@ opt.whichwrap:append("<>hl")
 
 g.mapleader = " "
 g.auto_save = false
-
--- disable builtin vim plugins
-local disabled_built_ins = {
-	"gzip",
-	"zip",
-	"zipPlugin",
-	"tar",
-	"tarPlugin",
-	"getscript",
-	"getscriptPlugin",
-	"vimball",
-	"vimballPlugin",
-	"2html_plugin",
-	"logipat",
-	"rrhelper",
-	"spellfile_plugin",
-	"matchit",
-}
-
-for _, plugin in pairs(disabled_built_ins) do
-	vim.g["loaded_" .. plugin] = 1
-end
-
--- Don't show status line on vim terminals
-vim.cmd([[ au TermOpen term://* setlocal nonumber laststatus=0 ]])
-
-vim.api.nvim_exec(
-	[[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost *.js,*.rs,*.lua FormatWrite
-augroup END
-]],
-	true
-)
