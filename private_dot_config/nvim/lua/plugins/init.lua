@@ -64,6 +64,9 @@ return require("packer").startup(function(use)
 	use({
 		"andymass/vim-matchup",
 		event = "VimEnter",
+		config = function()
+			vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
+		end,
 	})
 	use({
 		"windwp/nvim-ts-autotag",
@@ -139,15 +142,25 @@ return require("packer").startup(function(use)
 				keyword_style = "NONE",
 				function_style = "NONE",
 				variable_style = "NONE",
-				dark_sidebar = false,
-				colors = { bg_search = "green", fg_search = "black" },
+				dark_sidebar = true,
+				dark_float = true,
 			})
 		end,
 	})
 	use({
 		"hoob3rt/lualine.nvim",
 		config = function()
-			require("lualine").setup({ options = { theme = "github" } })
+			require("lualine").setup({
+				options = {
+					theme = "github",
+					component_separators = { left = "|", right = "|" },
+					section_separators = { left = "", right = "" },
+				},
+				sections = {
+					lualine_x = { "encoding" },
+					lualine_y = {},
+				},
+			})
 		end,
 	})
 
