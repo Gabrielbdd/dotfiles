@@ -1,7 +1,0 @@
-tap "homebrew/bundle"
-tap "homebrew/core"
-tap "ffizer/ffizer"
-brew "ffizer-bin"
-brew "gcc"
-brew "python@3.9"
-brew "fnm"
