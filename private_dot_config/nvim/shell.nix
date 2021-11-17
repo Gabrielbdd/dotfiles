@@ -4,11 +4,11 @@ with pkgs;
 pkgs.mkShell {
   buildInputs = [
     gcc
-    nodejs
-    neovim
+    # nodejs
+    # neovim
     tree-sitter
-    (python39.withPackages (pp: with pp; [
-      pynvim
-    ]))
+    # (python39.withPackages (pp: with pp; [
+    #   pynvim
+    # ]))
   ];
 }

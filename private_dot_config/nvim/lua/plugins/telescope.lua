@@ -4,6 +4,15 @@ if not present then
 end
 
 telescope.setup({
+	extensions = {
+		fzf = {
+			fuzzy = true, -- false will only do exact matching
+			override_generic_sorter = true, -- override the generic sorter
+			override_file_sorter = true, -- override the file sorter
+			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+			-- the default case_mode is "smart_case"
+		},
+	},
 	defaults = {
 		vimgrep_arguments = {
 			"rg",
@@ -49,6 +58,8 @@ telescope.setup({
 		qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
 		-- Developer configurations: Not meant for general override
 		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
-		promt_title = false,
+		prompt_title = false,
 	},
 })
+
+telescope.load_extension("fzf")

@@ -2,13 +2,23 @@ local opt = vim.opt
 local g = vim.g
 local wo = vim.wo
 local bo = vim.bo
+local o = vim.o
 
-g.coq_settings = { auto_start = "shut-up" }
-g.chadtree_settings = { theme = { text_colour_set = "nord" } }
+-- filetype.nvim
+-- Do not source the default filetype.vim
+vim.g.did_load_filetypes = 1
 
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldlevelstart = 3
+-- coq
+g.coq_settings = { keymap = { recommended = false }, auto_start = "shut-up" }
+
+-- fold settings
+wo.foldmethod = "expr"
+o.foldtext =
+	[[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) . ' (' . (v:foldend - v:foldstart + 1) . ' lines)']]
+wo.foldexpr = "nvim_treesitter#foldexpr()"
+wo.fillchars = "fold:\\"
+wo.foldminlines = 1
+o.foldlevelstart = 1
 
 opt.syntax = "on"
 opt.errorbells = false
@@ -22,10 +32,10 @@ wo.wrap = true
 
 opt.undofile = true
 opt.ruler = false
-opt.hidden = true
-opt.ignorecase = true
-opt.splitbelow = true
-opt.splitright = true
+opt.hidden = true -- buffer hidden
+opt.ignorecase = true -- case sens ignore search
+opt.splitbelow = true -- split behavior
+opt.splitright = true -- split behavior
 opt.termguicolors = true
 opt.cul = true
 opt.mouse = "a"
@@ -34,7 +44,10 @@ opt.cmdheight = 1
 opt.updatetime = 250 -- update interval for gitsigns
 opt.timeoutlen = 400
 opt.clipboard = "unnamedplus"
--- opt.shell = "nu.exe"
+
+-- speed
+opt.ttyfast = true
+opt.lazyredraw = true
 
 -- disable nvim intro
 opt.shortmess:append("sI")
