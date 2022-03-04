@@ -1,14 +1,15 @@
 { pkgs, ... }:
 
-let imports = [
-  ./git.nix
-  ./fish.nix
-  ./tmux.nix
-  ./neovim.nix
-  ./starship.nix
-  ./zoxide.nix
-  ./bat.nix
-];
+let
+  imports = [
+    ./git.nix
+    ./fish.nix
+    ./tmux.nix
+    # ./neovim.nix
+    ./starship.nix
+    ./zoxide.nix
+    ./bat.nix
+  ];
 in {
   inherit imports;
 
@@ -23,15 +24,16 @@ in {
       EDITOR = "nvim";
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
       FZF_DEFAULT_COMMAND = "fd --type f";
-      DISPLAY = "$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0";
       GPG_TTY = "$(tty)";
+      COLORTERM = "truecolor";
     };
   };
 
   home.packages = with pkgs; [
     # utils
+    jdupes # Work on duplicated files
     ncurses
-    /* git */
+    # git
     git-trim
     lazygit
     lsd
@@ -46,7 +48,8 @@ in {
     bottom
     delta
     up # The ultimate plumber
-    xclip
+    # xclip
+    wl-clipboard
     # rink # Unit conversion tool
     yadm
     chezmoi
@@ -59,18 +62,30 @@ in {
     cachix
     wget
     unzip
+    # gcc
+    nnn # file explorer
+    just # commands runner
 
-    ## oci
-    # podman
-    # podman-compose
-    # buildah
-    # kubectl
+    # database
+    mycli
 
-    ## cloud
+    # server
+    # apacheHttpd
+
+    # oci
+    podman
+    podman-compose
+    buildah
+
+    # kubernetes
+    kubectl
+    k9s
+    helm
+
+    # cloud
     azure-cli
     awscli2
 
-    ## security
     rage # Rust implementation of age, a simple a secure encryption tool
     # sops # Created by Mozilla, its an editor of encrypted files
     diceware # Passphrase generator
@@ -79,21 +94,38 @@ in {
     nushell
     fish
     powershell
+    oil
 
-    ## prompt
+    # prompt
     starship
 
     # editor
-    neovim-nightly
+    # neovim
+    # helix
 
-    # languages
-    ## java script
-    nodejs
-    yarn
-    nodePackages.pnpm
-    ## rust
-    rustup
-    ## ruby
+    # java script
+    # yarn
+    # nodePackages.pnpm
+
+    # rust
+    # rustup
+    # rust-analyzer
+
+    # ruby
     ruby
+
+    # lua
+    stylua
+
+    # php
+    # php81
+    # php81Packages.composer
+
+    # lisp
+    fennel
+    fnlfmt
+
+    # nix
+    nixfmt
   ];
 }
