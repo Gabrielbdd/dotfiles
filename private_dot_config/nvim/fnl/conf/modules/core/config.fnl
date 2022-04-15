@@ -80,3 +80,4 @@
 
 ;; filename + lineno
 (set! statusline "%F%m%r%h%w: %2l")
+(set! laststatus 3)

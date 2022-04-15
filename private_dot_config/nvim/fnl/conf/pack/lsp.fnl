@@ -35,7 +35,7 @@
   (buf-map! [n noremap silent] "]d" ":lua vim.diagnostic.goto_next()<CR>")
   ;; disable formatting for languages that is formatted using "null-ls"
   (when (or (= client.name :tsserver) (= client.name :jsonls)
-            (= client.name :rnix))
+            (= client.name :rnix) (= client.name :rust_analyzer))
     (set client.resolved_capabilities.document_formatting false)
     (set client.resolved_capabilities.document_range_formatting false)))
 

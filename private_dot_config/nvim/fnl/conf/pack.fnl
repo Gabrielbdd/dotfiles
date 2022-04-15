@@ -53,7 +53,10 @@
               {:ft lisp-ft :run "cargo build --release"})
 
 ;; file explorer
-(use-package! :luukvbaal/nnn.nvim {:init :nnn :cmd [:NnnPicker]})
+(use-package! :kyazdani42/nvim-tree.lua
+              {:requires :kyazdani42/nvim-web-devicons
+               :config! :nvim-tree
+               :cmd [:NvimTreeFindFileToggle]})
 
 ;; completion
 (use-package! :ms-jpq/coq_nvim
@@ -102,11 +105,11 @@
 ;; Fuzzy navigation
 ;; the loading order for this one is a bit weird, but it works. Extensions are loaded on their command, fzf native is loaded first, then telescope.nvim after fzf.
 (use-package! :nvim-telescope/telescope.nvim
-              {:after :telescope-fzf-native.nvim
+              {;;:after :telescope-fzf-native.nvim
                :config! :telescope
-               :requires [(pack :nvim-lua/popup.nvim {:cmd :Telescope})
-                          (pack :nvim-telescope/telescope-fzf-native.nvim
-                                {:run :make :after :plenary.nvim})]})
+               :requires [(pack :nvim-telescope/telescope-fzf-native.nvim
+                                {:run :make :after :plenary.nvim})
+                          (pack :nvim-lua/popup.nvim {:cmd :Telescope})]})
 
 ;; tree-sitter
 (use-package! :nvim-treesitter/nvim-treesitter
@@ -134,9 +137,16 @@
                          (local {: setup} (require :trouble))
                          (setup {:icons false}))})
 
+;; git
+(use-package! :lewis6991/gitsigns.nvim
+              {:config (fn []
+                         (local {: setup} (require :gitsigns))
+                         (setup))
+               :event :BufRead})
+
 ;; aesthetics
-(use-package! :/home/gabriel/projects/personal/github-nvim-theme
-              {:branch :feature/match-vscode-theme
+(use-package! :projekt0n/github-nvim-theme
+              {;; :branch :feature/match-vscode-theme
                :config (fn []
                          (local {: setup} (require :github-theme))
                          (setup {:theme_style :dark
@@ -179,6 +189,19 @@
                          (local {: setup} (require :surround))
                          (setup {:mappings_style :surround}))})
 
+(use-package! :AckslD/nvim-trevJ.lua
+              {:module :trevj
+               :config (fn []
+                         (local {: setup} (require :trevj))
+                         (setup {:containers {:cs {:parameter_list {:final_separator ","
+                                                                    :final_end_line true
+                                                                    :skip {}}
+                                                   :argument_list {:final_separator false
+                                                                   :final_end_line true
+                                                                   :skip {}}
+                                                   :initializer_expression {:final_separator ","
+                                                                            :final_end_line true
+                                                                            :skip {}}}}}))})
 
 ;; utils
 (use-package! :tpope/vim-repeat)
@@ -187,3 +210,5 @@
 
 ;; At the end of the file, the unpack! macro is called to initialize packer and pass each package to the packer.nvim plugin.
 (unpack!)
+
+;; parinfer

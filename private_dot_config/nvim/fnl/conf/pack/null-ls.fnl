@@ -20,6 +20,7 @@
                   builtins.formatting.stylua
                   builtins.formatting.prettierd
                   builtins.formatting.nixfmt
+                  builtins.formatting.rustfmt
                   justfmt]
         :on_attach (fn [client]
                      (buf-map! [n noremap silent] :<localleader>f

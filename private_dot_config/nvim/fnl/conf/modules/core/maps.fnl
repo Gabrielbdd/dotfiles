@@ -6,8 +6,8 @@
 ;; wrap/unwrap
 (map! [n] :<leader>w "<cmd>set wrap!<CR>")
 
-;; nnn
-(map! [n] :<C-b> ":NnnPicker %:p:h<CR>")
+;; nvim-tree
+(map! [n] :<C-b> ":NvimTreeFindFileToggle<CR>")
 
 ;; treesitter 
 (map! [n] :<Leader>th ":TSHighlightCapturesUnderCursor<CR>")
@@ -32,6 +32,9 @@
 (map! [n] :<leader>c
       "<cmd>lua print(require('hotpot.api.compile')['compile-buffer'](0))<CR>")
 
+;; trevj
+(map! [n] :gj "<cmd>lua require('trevj').format_at_cursor()<CR>")
+
 ;; coq & autopairs
 ;; manually map coq completion's keymaps to integrate with "nvim-autopairs"
 ;; back space (BS) carriage return (CR) and are mappend in the "nvim-autopairs" config
@@ -40,5 +43,8 @@
 (map! [i expr noremap] :<Tab> "pumvisible() ? \"<C-n>\" : \"<Tab>\"")
 (map! [i expr noremap] :<S-Tab> "pumvisible() ? \"<C-p>\" : \"<BS>\"")
 
-(map! [n noremap] :<M-n> ":lua require(\"illuminate\").next_reference{wrap=true}<CR>")
-(map! [n noremap] :<M-p> ":lua require(\"illuminate\").next_reference{reverse=true,wrap=true}<CR>")
+(map! [n noremap] :<M-n>
+      ":lua require(\"illuminate\").next_reference{wrap=true}<CR>")
+
+(map! [n noremap] :<M-p>
+      ":lua require(\"illuminate\").next_reference{reverse=true,wrap=true}<CR>")
