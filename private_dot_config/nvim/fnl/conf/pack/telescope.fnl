@@ -1,7 +1,7 @@
 (local {: setup} (require :telescope))
 (local ffi (require :ffi))
 
-(setup {:defaults {:prompt_prefix "   "
+(setup {:defaults {:prompt_prefix "  "
                    :selection_caret "  "
                    :entry_prefix "  "
                    :sorting_strategy :ascending

@@ -7,7 +7,7 @@
 (map! [n] :<leader>w "<cmd>set wrap!<CR>")
 
 ;; nvim-tree
-(map! [n] :<C-b> ":NvimTreeFindFileToggle<CR>")
+(map! [n silent] :<C-b> ":NvimTreeFindFileToggle<CR>")
 
 ;; treesitter 
 (map! [n] :<Leader>th ":TSHighlightCapturesUnderCursor<CR>")
@@ -18,22 +18,36 @@
 (map! [n] :<leader>fb "<cmd>Telescope buffers<CR>")
 (map! [n] :<leader>ff "<cmd>Telescope current_buffer_fuzzy_find<CR>")
 (map! [n] :<leader><space> "<cmd>Telescope find_files<CR>")
+(map! [n] "<leader>:" "<cmd>Telescope keymaps<CR>")
 
 ;; toggleterm
 (map! [n] "<localleader>," ":execute v:count . \"ToggleTerm\"<CR>")
 
+(fn toggle_lazy_git []
+  (local {: Terminal} (require :toggleterm.terminal))
+  (local lazygit (Terminal:new {:cmd :lazygit
+                                :hidden true
+                                :direction :float
+                                :dir :git_dir}))
+  (lazygit:toggle))
+
+(map! [n noremap silent] :<leader>gg toggle_lazy_git)
+
 ;; hotpot
-(map! [v] :<leader>e
-      "<cmd>lua print(require('hotpot.api.eval')['eval-selection']())<CR>")
-
-(map! [v] :<leader>c
-      "<cmd>lua print(require('hotpot.api.compile')['compile-selection']())<CR>")
-
-(map! [n] :<leader>c
-      "<cmd>lua print(require('hotpot.api.compile')['compile-buffer'](0))<CR>")
+;; (map! [v] :<leader>e
+;;       "<cmd>lua print(require('hotpot.api.eval')['eval-selection']())<CR>")
+;;
+;; (map! [v] :<leader>c
+;;       "<cmd>lua print(require('hotpot.api.compile')['compile-selection']())<CR>")
+;;
+;; (map! [n] :<leader>c
+;;       "<cmd>lua print(require('hotpot.api.compile')['compile-buffer'](0))<CR>")
 
 ;; trevj
 (map! [n] :gj "<cmd>lua require('trevj').format_at_cursor()<CR>")
+
+;; trouble
+(map! [n] :<leader>tt "<cmd>TroubleToggle workspace_diagnostics<CR>")
 
 ;; coq & autopairs
 ;; manually map coq completion's keymaps to integrate with "nvim-autopairs"

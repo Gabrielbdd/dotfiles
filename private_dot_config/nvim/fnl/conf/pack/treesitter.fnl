@@ -26,4 +26,16 @@
                            "#a2a9b0"
                            "#8f8b8b"
                            "#ada8a8"]}
-        :matchup {:enable true}})
+        :matchup {:enable true}
+        :textsubjects {:enable true
+                       :prev_selection ","
+                       :keymaps {:. :textsubjects-smart
+                                 ";" :textsubjects-container-outer
+                                 "i;" :textsubjects-container-inner}}
+        :textobjects {:select {:enable true
+                               :lookahead true
+                               :keymaps {:af "@function.outer"
+                                         :if "@function.inner"}}
+                      :swap {:enable true
+                             :swap_next {:<leader>a "@parameter.inner"}
+                             :swap_previous {:<leader>A "@parameter.inner"}}}})
