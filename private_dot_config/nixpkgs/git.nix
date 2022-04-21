@@ -7,6 +7,8 @@
       enable = true;
       options = {
         syntax-theme = "Dracula";
+# [credential]
+# 	helper = libsecret
       };
     };
     extraConfig = {
@@ -14,6 +16,7 @@
       push.default = "current";
       rebase.autostash = "true";
       pull.rebase = "true";
+      credential.helper = "libsecret";
     };
   };
 }

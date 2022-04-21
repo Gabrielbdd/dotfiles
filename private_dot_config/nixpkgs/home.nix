@@ -22,6 +22,7 @@ in {
     sessionVariables = {
       VISUAL = "nvim";
       EDITOR = "nvim";
+      SUDO_EDITOR = "nvim";
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";
       FZF_DEFAULT_COMMAND = "fd --type f";
       GPG_TTY = "$(tty)";
@@ -63,11 +64,10 @@ in {
     wget
     unzip
     # gcc
-    nnn # file explorer
     just # commands runner
-
-    # database
-    mycli
+    # ffmpeg
+    sqlite-web
+    tesseract
 
     # server
     # apacheHttpd
@@ -91,7 +91,7 @@ in {
     diceware # Passphrase generator
 
     # shell
-    nushell
+    # nushell
     fish
     powershell
     oil
@@ -116,6 +116,12 @@ in {
 
     # lua
     stylua
+
+    # deno
+    deno
+
+    # zig
+    zig
 
     # php
     # php81
