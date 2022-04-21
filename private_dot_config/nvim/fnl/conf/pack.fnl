@@ -151,8 +151,7 @@
 (use-package! :akinsho/toggleterm.nvim
               {:config (fn []
                          (local {: setup} (require :toggleterm))
-                         (setup {:insert_mappings false}))
-               :cmd [:ToggleTerm]})
+                         (setup {:insert_mappings false :open_mapping "<c-\\>"}))})
 
 ;; editing
 ;; apply .editorconfig settings

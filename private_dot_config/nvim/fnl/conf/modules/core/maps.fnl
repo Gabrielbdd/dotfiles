@@ -1,4 +1,4 @@
-(import-macros {: let! : map!} :conf.macros)
+(import-macros {: let! : map! : buf-map!} :conf.macros)
 
 ;; no highlight on escape
 (map! [n] :<esc> :<esc><cmd>noh<cr>)
@@ -21,7 +21,23 @@
 (map! [n] "<leader>:" "<cmd>Telescope keymaps<CR>")
 
 ;; toggleterm
-(map! [n] "<localleader>," ":execute v:count . \"ToggleTerm\"<CR>")
+;; (map! [n] "<localleader>," ":execute v:count . \"ToggleTerm\"<CR>")
+
+(vim.api.nvim_create_autocmd [:TermOpen]
+                             {:pattern ["term://*toggleterm#*"]
+                              :callback (fn []
+                                          (buf-map! [t noremap] :<esc>
+                                                    "<c-\\><c-n>")
+                                          (buf-map! [t noremap] :jk
+                                                    "<c-\\><c-n>")
+                                          (buf-map! [t noremap] :<c-h>
+                                                    "<c-\\><c-n><c-W>h")
+                                          (buf-map! [t noremap] :<c-j>
+                                                    "<c-\\><c-n><c-W>j")
+                                          (buf-map! [t noremap] :<c-k>
+                                                    "<c-\\><c-n><c-W>k")
+                                          (buf-map! [t noremap] :<c-l>
+                                                    "<c-\\><c-n><c-W>l"))})
 
 (fn toggle_lazy_git []
   (local {: Terminal} (require :toggleterm.terminal))
