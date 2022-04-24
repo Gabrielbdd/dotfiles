@@ -111,22 +111,18 @@
                          (local {: setup} (require :fidget))
                          (setup {}))})
 
+(use-package! :Mofiqul/trld.nvim
+              {:config (fn []
+                         (local {: setup} (require :trld))
+                         (setup {:position :top}))})
+
+(use-package! :zbirenbaum/neodim
+              {:config (fn []
+                         (local {: setup} (require :neodim))
+                         (setup))})
+
 ;; git
 (use-package! :lewis6991/gitsigns.nvim {:config! :gitsigns :event :BufRead})
-
-;; aesthetics
-;; (use-package! :projekt0n/github-nvim-theme {})
-;; :branch :feature/match-vscode-theme
-;; :config (fn []
-;;           (local {: setup} (require :github-theme))
-;;           (setup {:theme_style :dark
-;;                   :transparent false
-;;                   :comment_style :NONE
-;;                   :keyword_style :NONE
-;;                   :function_style :NONE
-;;                   :variable_style :NONE
-;;                   :dark_sidebar true
-;;                   :dark_float true}))})
 
 (use-package! :rktjmp/lush.nvim)
 (use-package! :/home/gabriel/projects/personal/rider-dark
@@ -185,5 +181,3 @@
 
 ;; At the end of the file, the unpack! macro is called to initialize packer and pass each package to the packer.nvim plugin.
 (unpack!)
-
-;; parinfer

@@ -20,13 +20,13 @@
                             (next_hunk gs)))
   (buf-map! [n expr] "[c" (fn []
                             (prev_hunk gs)))
-  ; actions
+  ;; actions
   (buf-map! [n silent] :<leader>hs ":Gitsigns stage_hunk<CR>")
   (buf-map! [v silent] :<leader>hs ":Gitsigns stage_hunk<CR>")
   (buf-map! [n silent] :<leader>hr ":Gitsigns reset_hunk<CR>")
   (buf-map! [v silent] :<leader>hr ":Gitsigns reset_hunk<CR>")
 
-  ; text object
+  ;; text object
   (buf-map! [o] :ih ":<C-U>Gitsigns select_hunk<CR>")
   (buf-map! [x] :ih ":<C-U>Gitsigns select_hunk<CR>"))
 

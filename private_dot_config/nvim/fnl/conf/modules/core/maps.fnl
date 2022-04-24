@@ -1,10 +1,27 @@
 (import-macros {: let! : map! : buf-map!} :conf.macros)
 
+;; =================== General ===================
+
 ;; no highlight on escape
 (map! [n] :<esc> :<esc><cmd>noh<cr>)
 
 ;; wrap/unwrap
 (map! [n] :<leader>w "<cmd>set wrap!<CR>")
+
+;; better navigation between splits
+(map! [n] :<c-h> :<c-w>h)
+(map! [n] :<c-j> :<c-w>j)
+(map! [n] :<c-k> :<c-w>k)
+(map! [n] :<c-l> :<c-w>l)
+
+;; better navigation between buffers
+(map! [n] "[b" ":bprev<CR>")
+(map! [n] "]b" ":bnext<CR>")
+
+;; esier way to het into command mode
+(map! [n] ";" ":")
+
+;; =================== Plugins ===================
 
 ;; nvim-tree
 (map! [n silent] :<C-b> ":NvimTreeFindFileToggle<CR>")
@@ -21,14 +38,10 @@
 (map! [n] "<leader>:" "<cmd>Telescope keymaps<CR>")
 
 ;; toggleterm
-;; (map! [n] "<localleader>," ":execute v:count . \"ToggleTerm\"<CR>")
-
 (vim.api.nvim_create_autocmd [:TermOpen]
                              {:pattern ["term://*toggleterm#*"]
                               :callback (fn []
                                           (buf-map! [t noremap] :<esc>
-                                                    "<c-\\><c-n>")
-                                          (buf-map! [t noremap] :jk
                                                     "<c-\\><c-n>")
                                           (buf-map! [t noremap] :<c-h>
                                                     "<c-\\><c-n><c-W>h")
@@ -38,16 +51,6 @@
                                                     "<c-\\><c-n><c-W>k")
                                           (buf-map! [t noremap] :<c-l>
                                                     "<c-\\><c-n><c-W>l"))})
-
-(fn toggle_lazy_git []
-  (local {: Terminal} (require :toggleterm.terminal))
-  (local lazygit (Terminal:new {:cmd :lazygit
-                                :hidden true
-                                :direction :float
-                                :dir :git_dir}))
-  (lazygit:toggle))
-
-(map! [n noremap silent] :<leader>gg toggle_lazy_git)
 
 ;; hotpot
 ;; (map! [v] :<leader>e

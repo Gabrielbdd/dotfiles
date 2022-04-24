@@ -29,12 +29,12 @@
   ;; (buf-map! [n noremap silent] :gr ":lua vim.lsp.buf.references()<CR>")
   ;; (buf-map! [n noremap silent] :<space>ca ":lua vim.lsp.buf.code_action()<CR>")
   ;; (buf-map! [v noremap silent] :<space>ca ":lua vim.lsp.buf.range_code_action()<CR>")
-
   (buf-map! [n noremap silent] :gd ":Telescope lsp_definitions<CR>")
   (buf-map! [n noremap silent] :gi ":Telescope lsp_implementations<CR>")
   (buf-map! [n noremap silent] :gr ":Telescope lsp_references<CR>")
   (buf-map! [n noremap silent] :<space>ca ":Telescope lsp_code_actions<CR>")
-  (buf-map! [v noremap silent] :<space>ca ":Telescope lsp_range_code_actions<CR>")
+  (buf-map! [v noremap silent] :<space>ca
+            ":Telescope lsp_range_code_actions<CR>")
   (buf-map! [n noremap silent] :K ":lua vim.lsp.buf.hover()<CR>")
   (buf-map! [n noremap silent] :rn ":lua vim.lsp.buf.rename()<CR>")
   (buf-map! [n noremap silent] :<space>e ":lua vim.diagnostic.open_float()<CR>")
