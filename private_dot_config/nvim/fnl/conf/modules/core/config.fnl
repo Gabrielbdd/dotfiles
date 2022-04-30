@@ -42,11 +42,11 @@
 (set! shiftwidth 0)
 
 ;; ================ Folds ================
-(set! foldenable)
-(set! foldmethod :indent)
-(set! foldlevel 1)
-(set! foldnestmax 10)
-(set! foldcolumn :0)
+;; (set! foldenable)
+;; (set! foldmethod :indent)
+;; (set! foldlevel 1)
+;; (set! foldnestmax 10)
+;; (set! foldcolumn :0)
 
 ;; ================ UI ================
 ;; faster macros 
