@@ -35,7 +35,4 @@
         :textobjects {:select {:enable true
                                :lookahead true
                                :keymaps {:af "@function.outer"
-                                         :if "@function.inner"}}
-                      :swap {:enable true
-                             :swap_next {:<leader>a "@parameter.inner"}
-                             :swap_previous {:<leader>A "@parameter.inner"}}}})
+                                         :if "@function.inner"}}}})

@@ -89,6 +89,13 @@
                                 {:cmd [:TSPlayground
                                        :TSHighlightCapturesUnderCursor]})]})
 
+;; TODO: Change to original project once this PR is closed
+;; https://github.com/mizlan/iswap.nvim/pull/47
+(use-package! :JoseConseco/iswap.nvim
+              {:config (fn []
+                         (local {: setup} (require :iswap))
+                         (setup {}))})
+
 ;; lsp
 (use-package! :neovim/nvim-lspconfig
               {:config! :lsp

@@ -52,6 +52,10 @@
                                           (buf-map! [t noremap] :<c-l>
                                                     "<c-\\><c-n><c-W>l"))})
 
+;; iswap
+(map! [n noremap] :<m-h> "<cmd>ISwapCursorNodeLeft<CR>")
+(map! [n noremap] :<m-l> "<cmd>ISwapCursorNodeRight<CR>")
+
 ;; hotpot
 ;; (map! [v] :<leader>e
 ;;       "<cmd>lua print(require('hotpot.api.eval')['eval-selection']())<CR>")
