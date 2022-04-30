@@ -1,7 +1,12 @@
 (import-macros {: buf-map!} :conf.macros)
 
-(local config (require :lspconfig))
+;; must run before lsp_config[server].setup()
+(let [{: setup} (require :nvim-lsp-installer)]
+  (setup))
 
+(local lsp_config (require :lspconfig))
+
+;; customize diagnostics
 (let [{: config : severity} vim.diagnostic
       {: sign_define} vim.fn]
   (config {:underline {:severity {:min severity.INFO}}
@@ -21,20 +26,17 @@
        (with handlers.hover {:border :single})))
 
 ;; language servers setup
-(local lsp_installer (require :nvim-lsp-installer))
-
-(fn on-attach [client bufnr]
+(fn on_attach [client bufnr]
+  ;; lsp keymaps
   ;; (buf-map! [n noremap silent] :gd ":lua vim.lsp.buf.definition()<CR>")
   ;; (buf-map! [n noremap silent] :gi ":lua vim.lsp.buf.implementation()<CR>")
   ;; (buf-map! [n noremap silent] :gr ":lua vim.lsp.buf.references()<CR>")
-  ;; (buf-map! [n noremap silent] :<space>ca ":lua vim.lsp.buf.code_action()<CR>")
-  ;; (buf-map! [v noremap silent] :<space>ca ":lua vim.lsp.buf.range_code_action()<CR>")
   (buf-map! [n noremap silent] :gd ":Telescope lsp_definitions<CR>")
   (buf-map! [n noremap silent] :gi ":Telescope lsp_implementations<CR>")
   (buf-map! [n noremap silent] :gr ":Telescope lsp_references<CR>")
-  (buf-map! [n noremap silent] :<space>ca ":Telescope lsp_code_actions<CR>")
+  (buf-map! [n noremap silent] :<space>ca ":lua vim.lsp.buf.code_action()<CR>")
   (buf-map! [v noremap silent] :<space>ca
-            ":Telescope lsp_range_code_actions<CR>")
+            ":lua vim.lsp.buf.range_code_action()<CR>")
   (buf-map! [n noremap silent] :K ":lua vim.lsp.buf.hover()<CR>")
   (buf-map! [n noremap silent] :rn ":lua vim.lsp.buf.rename()<CR>")
   (buf-map! [n noremap silent] :<space>e ":lua vim.diagnostic.open_float()<CR>")
@@ -42,7 +44,8 @@
   (buf-map! [n noremap silent] "]d" ":lua vim.diagnostic.goto_next()<CR>")
   ;; disable formatting for languages that is formatted using "null-ls"
   (when (or (= client.name :tsserver) (= client.name :jsonls)
-            (= client.name :rnix) (= client.name :rust_analyzer))
+            (= client.name :rnix) (= client.name :rust_analyzer)
+            (= client.name :sumneko_lua))
     (set client.resolved_capabilities.document_formatting false)
     (set client.resolved_capabilities.document_range_formatting false)))
 
@@ -50,7 +53,7 @@
        ((. (require :coq) :lsp_ensure_capabilities) (vim.lsp.protocol.make_client_capabilities)))
 
 (local sumneko_lua_config
-       {:on_attach on-attach
+       {: on_attach
         :capabilities client_capabilities
         :settings {:Lua {:runtime {:version :LuaJIT
                                    :path (vim.split package.path ";")}
@@ -59,17 +62,18 @@
                                                (vim.fn.expand :$VIMRUNTIME/lua/vim/lsp) true}}}}})
 
 (local jsonls_config
-       {:on_attach on-attach
+       {: on_attach
         :capabilities client_capabilities
         :settings {:json {:schemas (let [schemastore (require :schemastore)]
                                      (schemastore.json.schemas))}}})
 
-(local default_config {:on_attach on-attach :capabilities client_capabilities})
+(local default_config {: on_attach :capabilities client_capabilities})
 
-(lsp_installer.on_server_ready (fn [server]
-                                 (let [config (if (= server.name :sumneko_lua)
-                                                  sumneko_lua_config
-                                                  (= server.name :jsonls)
-                                                  jsonls_config
-                                                  default_config)]
-                                   (server:setup config))))
+(lsp_config.jsonls.setup jsonls_config)
+(lsp_config.tsserver.setup default_config)
+(lsp_config.html.setup default_config)
+(lsp_config.cssls.setup default_config)
+(lsp_config.tailwindcss.setup default_config)
+(lsp_config.omnisharp.setup default_config)
+(lsp_config.rnix.setup default_config)
+(lsp_config.sumneko_lua.setup sumneko_lua_config)

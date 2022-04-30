@@ -99,10 +99,8 @@
 ;; lsp
 (use-package! :neovim/nvim-lspconfig
               {:config! :lsp
-               :requires [(pack :williamboman/nvim-lsp-installer
-                                {:module :nvim-lsp-installer})
-                          (pack :b0o/schemastore.nvim {:module :schemastore})]
-               :event :BufRead})
+               :requires [(pack :williamboman/nvim-lsp-installer)
+                          (pack :b0o/schemastore.nvim {:module :schemastore})]})
 
 (use-package! :jose-elias-alvarez/null-ls.nvim
               {:config! :null-ls :event :BufRead})
