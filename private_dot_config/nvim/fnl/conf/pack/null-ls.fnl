@@ -2,6 +2,7 @@
 (local {: setup : builtins : methods : generator : register} (require :null-ls))
 (local {: diagnostics : formatter_factory} (require :null-ls.helpers))
 
+;; register formatter for Justfile
 (local justfmt {:name :justfmt
                 :method methods.FORMATTING
                 :filetypes [:just]
@@ -16,12 +17,39 @@
 
 (register justfmt)
 
+;; format on save
+(fn lsp-formatting [bufnr]
+  (vim.lsp.buf.format {: bufnr
+                       :filter (fn [clients]
+                                 (vim.tbl_filter (fn [client]
+                                                   (or (not= client.name
+                                                             :tsserver)
+                                                       (not= client.name
+                                                             :jsonls)
+                                                       (not= client.name :rnix)
+                                                       (not= client.name
+                                                             :rust_analyzer)
+                                                       (not= client.name
+                                                             :sumneko_lua)))
+                                                 clients))}))
+
+(local auto-group (vim.api.nvim_create_augroup :LspFormatting {}))
+
+(fn on-attach [client bufnr]
+  (when client.supports_method
+    :textDocument/formatting
+    (do
+      (vim.api.nvim_clear_autocmds {:group auto-group :buffer bufnr})
+      (vim.api.nvim_create_autocmd :BufWritePre
+                                   {:group auto-group
+                                    :buffer bufnr
+                                    :callback (fn []
+                                                (lsp-formatting bufnr))}))))
+
 (setup {:sources [builtins.formatting.fnlfmt
                   builtins.formatting.stylua
                   builtins.formatting.prettierd
                   builtins.formatting.nixfmt
                   builtins.formatting.rustfmt
                   justfmt]
-        :on_attach (fn [client]
-                     (buf-map! [n noremap silent] :<localleader>f
-                               ":lua vim.lsp.buf.formatting()<CR>"))})
+        :on_attach on-attach})
