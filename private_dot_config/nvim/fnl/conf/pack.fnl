@@ -26,42 +26,13 @@
                :cmd [:NvimTreeFindFileToggle]})
 
 ;; completion
-(use-package! :ms-jpq/coq_nvim
-              {:branch :coq
-               :module :coq
-               :setup (fn []
-                        (let! coq_settings
-                              {:auto_start :shut-up
-                               :keymap {:recommended false}
-                               :display {:pum {:kind_context [" " ""]
-                                               :source_context [" " ""]}
-                                         :ghost_text {:context [" " ""]}
-                                         :icons {:mode :short
-                                                 :mappings {:Text ""
-                                                            :Method ""
-                                                            :Function ""
-                                                            :Constructor ""
-                                                            :Field ""
-                                                            :Variable ""
-                                                            :Class ""
-                                                            :Interface ""
-                                                            :Module ""
-                                                            :Property ""
-                                                            :Unit ""
-                                                            :Value ""
-                                                            :Enum ""
-                                                            :Keyword ""
-                                                            :Snippet ""
-                                                            :Color ""
-                                                            :File ""
-                                                            :Reference ""
-                                                            :Folder ""
-                                                            :EnumMember ""
-                                                            :Constant ""
-                                                            :Struct ""
-                                                            :Event ""
-                                                            :Operator ""
-                                                            :TypeParameter ""}}}}))})
+(use-package! :hrsh7th/cmp-nvim-lsp)
+(use-package! :hrsh7th/cmp-buffer)
+(use-package! :hrsh7th/cmp-path)
+;; (use-package! :hrsh7th/cmp-cmdline)
+(use-package! :hrsh7th/nvim-cmp {:config! :cmp})
+(use-package! :L3MON4D3/LuaSnip)
+(use-package! :saadparwaiz1/cmp_luasnip)
 
 ;; commenting
 (use-package! :numToStr/Comment.nvim {:init :Comment :event :BufRead})

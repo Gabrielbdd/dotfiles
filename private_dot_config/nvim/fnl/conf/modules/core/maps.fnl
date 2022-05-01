@@ -62,23 +62,15 @@
 ;;
 ;; (map! [v] :<leader>c
 ;;       "<cmd>lua print(require('hotpot.api.compile')['compile-selection']())<CR>")
-;;
-;; (map! [n] :<leader>c
-;;       "<cmd>lua print(require('hotpot.api.compile')['compile-buffer'](0))<CR>")
+
+(map! [n] :<localleader>c
+      "<cmd>lua print(require('hotpot.api.compile')['compile-buffer'](0))<CR>")
 
 ;; trevj
 (map! [n] :gj "<cmd>lua require('trevj').format_at_cursor()<CR>")
 
 ;; trouble
 (map! [n] :<leader>tt "<cmd>TroubleToggle workspace_diagnostics<CR>")
-
-;; coq & autopairs
-;; manually map coq completion's keymaps to integrate with "nvim-autopairs"
-;; back space (BS) carriage return (CR) and are mappend in the "nvim-autopairs" config
-(map! [i expr noremap] :<Esc> "pumvisible() ? \"<C-e><Esc>\" : \"<Esc>\"")
-(map! [i expr noremap] :<C-c> "pumvisible() ? \"<C-e><C-c>\" : \"<C-c>\"")
-(map! [i expr noremap] :<Tab> "pumvisible() ? \"<C-n>\" : \"<Tab>\"")
-(map! [i expr noremap] :<S-Tab> "pumvisible() ? \"<C-p>\" : \"<BS>\"")
 
 (map! [n noremap] :<M-n>
       ":lua require(\"illuminate\").next_reference{wrap=true}<CR>")

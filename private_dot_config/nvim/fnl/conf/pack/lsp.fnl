@@ -5,6 +5,7 @@
   (setup))
 
 (local lsp_config (require :lspconfig))
+(local cmp_lsp (require :cmp_nvim_lsp))
 
 ;; customize diagnostics
 (let [{: config : severity} vim.diagnostic
@@ -41,16 +42,11 @@
   (buf-map! [n noremap silent] :rn ":lua vim.lsp.buf.rename()<CR>")
   (buf-map! [n noremap silent] :<space>e ":lua vim.diagnostic.open_float()<CR>")
   (buf-map! [n noremap silent] "[d" ":lua vim.diagnostic.goto_prev()<CR>")
-  (buf-map! [n noremap silent] "]d" ":lua vim.diagnostic.goto_next()<CR>")
-  ;; disable formatting for languages that is formatted using "null-ls"
-  (when (or (= client.name :tsserver) (= client.name :jsonls)
-            (= client.name :rnix) (= client.name :rust_analyzer)
-            (= client.name :sumneko_lua))
-    (set client.resolved_capabilities.document_formatting false)
-    (set client.resolved_capabilities.document_range_formatting false)))
+  (buf-map! [n noremap silent] "]d" ":lua vim.diagnostic.goto_next()<CR>"))
 
 (local client_capabilities
-       ((. (require :coq) :lsp_ensure_capabilities) (vim.lsp.protocol.make_client_capabilities)))
+       (-> (vim.lsp.protocol.make_client_capabilities)
+           (cmp_lsp.update_capabilities)))
 
 (local sumneko_lua_config
        {: on_attach
