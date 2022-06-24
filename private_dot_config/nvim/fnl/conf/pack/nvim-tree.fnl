@@ -1,15 +1,14 @@
 (import-macros {: let!} :conf.macros)
 (local {: setup} (require :nvim-tree))
 
-(let! nvim_tree_git_hl 1)
-(let! nvim_tree_group_empty 1)
-(let! nvim_tree_highlight_opened_files 1)
-(let! nvim_tree_special_files {})
-(let! nvim_tree_root_folder_modifier ":p:~")
-(let! nvim_tree_show_icons {:git 0 :folders 1 :files 1 :folder_arrows 0})
-
 (setup {:diagnostics {:enable true}
-        ;; :tab_open true
-        ;; :auto_close false
+        :renderer {:highlight_git true
+                   :group_empty true
+                   :highlight_opened_files :none
+                   :root_folder_modifier ":p:~"
+                   :special_files {}
+                   :icons {:show {:folder true
+                                  :file true
+                                  :folder_arrow true}}}
         :view {:width 40}
         :actions {:open_file {:quit_on_open true}}})

@@ -1,8 +1,6 @@
 (import-macros {: pack
                 : use-package!
                 : unpack!
-                : map!
-                : buf-map!
                 : let!
                 : set!} :conf.macros)
 
@@ -31,7 +29,7 @@
 (use-package! :hrsh7th/cmp-path)
 ;; (use-package! :hrsh7th/cmp-cmdline)
 (use-package! :hrsh7th/nvim-cmp {:config! :cmp})
-(use-package! :L3MON4D3/LuaSnip)
+(use-package! :L3MON4D3/LuaSnip {:config! :luasnip})
 (use-package! :saadparwaiz1/cmp_luasnip)
 
 ;; commenting
@@ -74,7 +72,8 @@
                           (pack :b0o/schemastore.nvim {:module :schemastore})]})
 
 (use-package! :jose-elias-alvarez/null-ls.nvim
-              {:config! :null-ls :event :BufRead})
+              {:config! :null-ls :event :BufRead
+               :requires [:ThePrimeagen/refactoring.nvim]})
 
 (use-package! :folke/trouble.nvim
               {:cmd [:Trouble :TroubleToggle]

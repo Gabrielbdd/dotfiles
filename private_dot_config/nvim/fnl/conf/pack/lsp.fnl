@@ -1,4 +1,4 @@
-(import-macros {: buf-map!} :conf.macros)
+(local keymaps (require :conf.modules.core.maps))
 
 ;; must run before lsp_config[server].setup()
 (let [{: setup} (require :nvim-lsp-installer)]
@@ -26,27 +26,43 @@
   (set vim.lsp.handlers.textDocument/hover
        (with handlers.hover {:border :single})))
 
+(fn lsp_formatting [bufnr]
+  (vim.lsp.buf.format {: bufnr
+                       :filter (fn [client]
+                                   (or (not= client.name
+                                             :tsserver)
+                                       (not= client.name
+                                             :jsonls)
+                                       (not= client.name :rnix)
+                                       (not= client.name
+                                             :rust_analyzer)
+                                       (not= client.name
+                                             :sumneko_lua)))}))
+
+(local format-au-group (vim.api.nvim_create_augroup :LspFormatting {}))
+(local highlight-au-group (vim.api.nvim_create_augroup :LspHighlighting {}))
+
 ;; language servers setup
 (fn on_attach [client bufnr]
-  ;; lsp keymaps
-  ;; (buf-map! [n noremap silent] :gd ":lua vim.lsp.buf.definition()<CR>")
-  ;; (buf-map! [n noremap silent] :gi ":lua vim.lsp.buf.implementation()<CR>")
-  ;; (buf-map! [n noremap silent] :gr ":lua vim.lsp.buf.references()<CR>")
-  (buf-map! [n noremap silent] :gd ":Telescope lsp_definitions<CR>")
-  (buf-map! [n noremap silent] :gi ":Telescope lsp_implementations<CR>")
-  (buf-map! [n noremap silent] :gr ":Telescope lsp_references<CR>")
-  (buf-map! [n noremap silent] :<space>ca ":lua vim.lsp.buf.code_action()<CR>")
-  (buf-map! [v noremap silent] :<space>ca
-            ":lua vim.lsp.buf.range_code_action()<CR>")
-  (buf-map! [n noremap silent] :K ":lua vim.lsp.buf.hover()<CR>")
-  (buf-map! [n noremap silent] :rn ":lua vim.lsp.buf.rename()<CR>")
-  (buf-map! [n noremap silent] :<space>e ":lua vim.diagnostic.open_float()<CR>")
-  (buf-map! [n noremap silent] "[d" ":lua vim.diagnostic.goto_prev()<CR>")
-  (buf-map! [n noremap silent] "]d" ":lua vim.diagnostic.goto_next()<CR>"))
+  ;; setup keymaps
+  (keymaps.lsp)
+  ;; format on save
+  (when client.supports_method
+    :textDocument/formatting
+    (do
+      (vim.api.nvim_clear_autocmds {:group format-au-group :buffer bufnr})
+      (vim.api.nvim_create_autocmd :BufWritePre
+                                   {:group format-au-group
+                                    :buffer bufnr
+                                    :callback (fn []
+                                                (lsp_formatting bufnr))}))))
 
-(local client_capabilities
-       (-> (vim.lsp.protocol.make_client_capabilities)
-           (cmp_lsp.update_capabilities)))
+(var client_capabilities
+     (-> (vim.lsp.protocol.make_client_capabilities)
+         (cmp_lsp.update_capabilities)))
+
+(local default_config {: on_attach
+                       :capabilities client_capabilities})
 
 (local sumneko_lua_config
        {: on_attach
@@ -63,13 +79,14 @@
         :settings {:json {:schemas (let [schemastore (require :schemastore)]
                                      (schemastore.json.schemas))}}})
 
-(local default_config {: on_attach :capabilities client_capabilities})
+(vim.lsp.set_log_level :DEBUG)
 
 (lsp_config.jsonls.setup jsonls_config)
 (lsp_config.tsserver.setup default_config)
 (lsp_config.html.setup default_config)
 (lsp_config.cssls.setup default_config)
-(lsp_config.tailwindcss.setup default_config)
+;; (lsp_config.tailwindcss.setup default_config)
 (lsp_config.omnisharp.setup default_config)
 (lsp_config.rnix.setup default_config)
 (lsp_config.sumneko_lua.setup sumneko_lua_config)
+(lsp_config.rust_analyzer.setup sumneko_lua_config)

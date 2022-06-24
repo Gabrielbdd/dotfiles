@@ -48,8 +48,8 @@
             :mapping {:<tab> (cmp.mapping (fn [fallback]
                                             (if (cmp.visible)
                                                 (cmp.select_next_item)
-                                                (luasnip.expand_or_jumpable)
-                                                (luasnip.expand_or_jump)
+                                                ;; (luasnip.expand_or_jumpable)
+                                                ;; (luasnip.expand_or_jump)
                                                 (has-words-before)
                                                 (cmp.complete)
                                                 (fallback)))
@@ -57,18 +57,18 @@
                       :<s-tab> (cmp.mapping (fn [fallback]
                                               (if (cmp.visible)
                                                   (cmp.select_prev_item)
-                                                  (luasnip.jumpable -1)
-                                                  (luasnip.jump -1)
+                                                  ;; (luasnip.jumpable -1)
+                                                  ;; (luasnip.jump -1)
                                                   (fallback)))
                                             [:i :s])
                       :<c-space> (cmp.mapping (cmp.mapping.complete) [:i :c])
                       :<cr> (cmp.mapping {:i (cmp.mapping.confirm {:behavior cmp.ConfirmBehavior.Replace
                                                                    :select false})})}
-                                          ;; :c (fn [fallback]
-                                          ;;      (if (cmp.visible)
-                                          ;;          (cmp.confirm {:behavior cmp.ConfirmBehavior.Replace
-                                          ;;                        :select false})
-                                          ;;          (fallback)))})}
+            ;; :c (fn [fallback]
+            ;;      (if (cmp.visible)
+            ;;          (cmp.confirm {:behavior cmp.ConfirmBehavior.Replace
+            ;;                        :select false})
+            ;;          (fallback)))})}
             :sources (cmp.config.sources [{:name :nvim_lsp}
                                           {:name :luasnip}
                                           {:name :path}]
